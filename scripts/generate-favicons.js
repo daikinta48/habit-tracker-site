@@ -10,14 +10,14 @@ async function generateFavicons() {
   // Generate favicon-32.png (32x32)
   await sharp(sourceImage)
     .resize(32, 32)
-    .toFile('favicon-32.png');
-  console.log('✓ Generated favicon-32.png');
+    .toFile('assets/images/favicon-32.png');
+  console.log('✓ Generated assets/images/favicon-32.png');
   
   // Generate apple-touch-icon.png (180x180)
   await sharp(sourceImage)
     .resize(180, 180)
-    .toFile('apple-touch-icon.png');
-  console.log('✓ Generated apple-touch-icon.png');
+    .toFile('assets/images/apple-touch-icon.png');
+  console.log('✓ Generated assets/images/apple-touch-icon.png');
   
   // Generate 16x16 and 32x32 PNGs for ICO
   const png16Path = 'favicon-16.png';
