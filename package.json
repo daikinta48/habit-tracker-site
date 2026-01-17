@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Habit Tracker website",
   "scripts": {
-    "generate-favicons": "node generate-favicons.js"
+    "generate-favicons": "node scripts/generate-favicons.js"
   },
   "devDependencies": {
     "sharp": "^0.33.0",
