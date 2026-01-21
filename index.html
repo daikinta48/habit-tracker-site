@@ -113,6 +113,39 @@
       color: var(--text-muted);
     }
 
+    .qr-code-container {
+      margin-top: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .qr-code-wrapper {
+      background: var(--bg-white);
+      padding: 16px;
+      border-radius: var(--radius-md);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      display: inline-block;
+    }
+
+    .qr-code-wrapper canvas,
+    .qr-code-wrapper img {
+      display: block;
+    }
+
+    .qr-code-label {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
+    @media (max-width: 600px) {
+      .qr-code-container {
+        margin-top: 20px;
+      }
+    }
+
     /* ===== Sections ===== */
     section {
       padding: 48px 0;
@@ -429,14 +462,19 @@
       </div>
       <h1>Habit Tracker</h1>
       <p class="hero-tagline">連続しなくていい。変わってもいい。<br>途切れても、積み上げは消えない。</p>
-      <a href="#" class="hero-cta">
+      <a href="https://apps.apple.com/app/habit-tracker-small-wins/id6757263291" class="hero-cta" target="_blank" rel="noopener noreferrer">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
           <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
         </svg>
-        近日リリース予定
+        App Storeでダウンロード
       </a>
-      <p class="hero-note">iOS向けアプリとして準備中です</p>
+      <div class="qr-code-container">
+        <div class="qr-code-wrapper">
+          <img id="hero-qr-code" alt="QR Code" />
+        </div>
+        <p class="qr-code-label">QRコードをスキャンして<br>App Storeで開く</p>
+      </div>
     </div>
   </header>
 
@@ -610,13 +648,19 @@
   <!-- CTA -->
   <section class="cta-section">
     <p class="cta-message">連続しなくていい。変わってもいい。<br>それでも、あなたは確実に前に進んでいます。</p>
-    <a href="#" class="hero-cta">
+    <a href="https://apps.apple.com/app/habit-tracker-small-wins/id6757263291" class="hero-cta" target="_blank" rel="noopener noreferrer">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
         <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
       </svg>
-      近日リリース予定
+      App Storeでダウンロード
     </a>
+    <div class="qr-code-container">
+      <div class="qr-code-wrapper">
+        <img id="cta-qr-code" alt="QR Code" />
+      </div>
+      <p class="qr-code-label">QRコードをスキャンして<br>App Storeで開く</p>
+    </div>
   </section>
 
   <!-- Footer -->
@@ -627,5 +671,34 @@
     </div>
     <p class="footer-copy">&copy; 2025 Habit Tracker</p>
   </footer>
+
+  <script>
+    // App Store URL
+    const appStoreUrl = 'https://apps.apple.com/app/habit-tracker-small-wins/id6757263291';
+
+    // QRコード生成関数（Google Charts APIを使用）
+    function generateQRCode(imgId, url) {
+      const img = document.getElementById(imgId);
+      if (!img) {
+        console.error('画像要素が見つかりません:', imgId);
+        return;
+      }
+
+      // Google Charts APIを使用してQRコードを生成
+      const encodedUrl = encodeURIComponent(url);
+      const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodedUrl}`;
+      
+      img.src = qrCodeUrl;
+      img.onerror = function() {
+        console.error('QRコード画像の読み込みに失敗しました:', imgId);
+      };
+    }
+
+    // ページ読み込み後にQRコードを生成
+    document.addEventListener('DOMContentLoaded', function() {
+      generateQRCode('hero-qr-code', appStoreUrl);
+      generateQRCode('cta-qr-code', appStoreUrl);
+    });
+  </script>
 </body>
 </html>
