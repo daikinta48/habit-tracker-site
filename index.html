@@ -64,7 +64,7 @@
     }
 
     .container {
-      max-width: 800px;
+      max-width: 1100px;
       margin: 0 auto;
       padding: 0 20px;
     }
@@ -175,9 +175,38 @@
       text-align: center;
     }
 
+    .hero-visual {
+      margin-top: 48px;
+      position: relative;
+      max-width: 380px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero-visual img {
+      width: 100%;
+      height: auto;
+      border-radius: var(--radius-xl);
+      box-shadow: 0 20px 60px rgba(76, 99, 238, 0.18), 0 4px 16px rgba(0, 0, 0, 0.08);
+    }
+
+    .hero-visual::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: var(--radius-xl);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+      pointer-events: none;
+    }
+
     @media (max-width: 600px) {
       .qr-code-container {
         display: none;
+      }
+
+      .hero-visual {
+        margin-top: 32px;
+        max-width: 300px;
       }
     }
 
@@ -259,50 +288,6 @@
       color: var(--primary);
     }
 
-    /* ===== Features Section ===== */
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 20px;
-      padding: 0 20px;
-    }
-
-    .feature-card {
-      background: var(--bg-white);
-      border-radius: var(--radius-md);
-      padding: 28px 24px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-    }
-
-    .feature-icon {
-      width: 48px;
-      height: 48px;
-      background: var(--primary-light);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 16px;
-    }
-
-    .feature-icon svg {
-      width: 24px;
-      height: 24px;
-    }
-
-    .feature-card h3 {
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--text-dark);
-      margin-bottom: 8px;
-    }
-
-    .feature-card p {
-      font-size: 0.9375rem;
-      color: var(--text-muted);
-      line-height: 1.7;
-    }
-
     /* ===== How It Works ===== */
     .steps {
       max-width: 480px;
@@ -347,76 +332,79 @@
       color: var(--text-muted);
     }
 
-    /* ===== Screen Preview ===== */
-    .screenshot-grid {
-      display: flex;
-      justify-content: center;
-      gap: 16px;
-      flex-wrap: wrap;
-      padding: 0 20px;
-    }
-
-    .screenshot-placeholder {
-      width: 160px;
-      background: var(--bg-white);
-      border-radius: var(--radius-lg);
-      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
-      border: 2px dashed var(--border);
+    /* ===== Screen Preview Gallery ===== */
+    .gallery-wrapper {
+      position: relative;
       overflow: hidden;
     }
 
-    .screenshot-placeholder img {
+    .gallery-scroll {
+      display: flex;
+      gap: 20px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      padding: 0 max(20px, calc((100vw - 1100px) / 2));
+      scrollbar-width: none;
+    }
+
+    .gallery-scroll::-webkit-scrollbar {
+      display: none;
+    }
+
+    .gallery-item {
+      flex: 0 0 280px;
+      scroll-snap-align: center;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.10), 0 2px 8px rgba(0, 0, 0, 0.06);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      background: #0d1229;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(76, 99, 238, 0.16), 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .gallery-item img {
       width: 100%;
       height: auto;
-      display: none;
+      display: block;
     }
 
-    .screenshot-placeholder.has-image {
+    .gallery-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 24px;
+    }
+
+    .gallery-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--border);
       border: none;
-      height: auto;
+      padding: 0;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
     }
 
-    .screenshot-placeholder.has-image img {
-      display: block;
+    .gallery-dot.active {
+      background: var(--primary);
+      transform: scale(1.25);
     }
 
-    .screenshot-placeholder.has-image .placeholder-content {
-      display: none;
-    }
+    @media (max-width: 600px) {
+      .gallery-item {
+        flex: 0 0 240px;
+      }
 
-    .placeholder-content {
-      text-align: center;
-      color: var(--text-muted);
-    }
-
-    .placeholder-content svg {
-      width: 32px;
-      height: 32px;
-      margin-bottom: 8px;
-      opacity: 0.4;
-    }
-
-    .placeholder-content span {
-      font-size: 0.75rem;
-      display: block;
-    }
-
-    .screenshot-item {
-      text-align: center;
-    }
-
-    .screenshot-caption {
-      margin-top: 12px;
-      font-size: 0.9375rem;
-      font-weight: 600;
-      color: var(--text-dark);
-    }
-
-    .screenshot-desc {
-      margin-top: 4px;
-      font-size: 0.875rem;
-      color: var(--text-muted);
-      line-height: 1.6;
+      .gallery-scroll {
+        padding: 0 20px;
+        gap: 14px;
+      }
     }
 
     /* ===== Founder Story Section ===== */
@@ -551,35 +539,126 @@
       color: var(--text-muted);
     }
 
-    /* ===== Responsive ===== */
+    /* ===== Desktop (768px+) ===== */
+    @media (min-width: 768px) {
+      .hero-inner {
+        display: flex;
+        align-items: center;
+        gap: 48px;
+      }
+
+      .hero-text {
+        flex: 1;
+        text-align: left;
+      }
+
+      .hero-text .hero-icon {
+        margin: 0 0 32px;
+      }
+
+      .hero-text .hero-badges {
+        justify-content: flex-start;
+      }
+
+      .hero-visual {
+        flex: 0 0 340px;
+        margin-top: 0;
+        margin-left: 0;
+        margin-right: 0;
+        max-width: 340px;
+      }
+
+      .hero-text .qr-code-container {
+        align-items: flex-start;
+      }
+
+      .painpoints {
+        max-width: 720px;
+      }
+
+      .philosophy {
+        max-width: 900px;
+        margin: 0 auto;
+      }
+
+      .steps {
+        max-width: 640px;
+      }
+
+      .gallery-scroll {
+        flex-wrap: wrap;
+        justify-content: center;
+        overflow-x: visible;
+        scroll-snap-type: none;
+        padding: 0 20px;
+        gap: 16px;
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+
+      .gallery-item {
+        flex: 0 0 calc(25% - 12px);
+        scroll-snap-align: unset;
+      }
+
+      .gallery-wrapper {
+        overflow: visible;
+      }
+
+      .gallery-dots {
+        display: none;
+      }
+
+      .founder-story {
+        max-width: 760px;
+      }
+
+      .faq-list {
+        max-width: 760px;
+      }
+    }
+
+    /* ===== Wide Desktop (1024px+) ===== */
+    @media (min-width: 1024px) {
+      .hero {
+        padding: 100px 20px 80px;
+      }
+
+      .hero-inner {
+        gap: 64px;
+      }
+
+      .hero-visual {
+        flex: 0 0 400px;
+        max-width: 400px;
+      }
+
+      .painpoints {
+        max-width: 800px;
+      }
+
+      .faq-list {
+        max-width: 840px;
+      }
+
+      .gallery-item {
+        flex: 0 0 calc(25% - 15px);
+      }
+    }
+
+    /* ===== Mobile (600px-) ===== */
     @media (max-width: 600px) {
       .hero {
         padding: 60px 20px 48px;
       }
 
+      .hero-text {
+        text-align: center;
+      }
+
       .philosophy {
         margin: 0 12px;
         padding: 32px 24px;
-      }
-
-      .features-grid {
-        padding: 0 12px;
-      }
-
-      .screenshot-grid {
-        flex-direction: column;
-        align-items: center;
-        gap: 24px;
-      }
-
-      .screenshot-item {
-        width: 100%;
-        max-width: 280px;
-      }
-
-      .screenshot-placeholder {
-        width: 100%;
-        max-width: none;
       }
 
       .footer-links {
@@ -591,29 +670,34 @@
 <body>
   <!-- Hero -->
   <header class="hero">
-    <div class="container">
-      <div class="hero-icon">
-        <img src="./assets/images/icon.png" alt="Habit Tracker アプリアイコン">
-      </div>
-      <h1>習慣アプリに、疲れていませんか？</h1>
-      <p class="hero-tagline">連続を追わない。積み上げだけを見る。<br>途切れても、あなたの努力は消えない習慣アプリ。</p>
-      <div class="hero-badges">
-        <span class="hero-badge">すべて無料</span>
-        <span class="hero-badge">広告なし</span>
-        <span class="hero-badge">アカウント不要</span>
-      </div>
-      <a href="https://apps.apple.com/app/habit-tracker-small-wins/id6757263291" class="hero-cta" target="_blank" rel="noopener noreferrer">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-          <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-        </svg>
-        App Storeでダウンロード
-      </a>
-      <div class="qr-code-container">
-        <div class="qr-code-wrapper">
-          <img id="hero-qr-code" alt="QR Code" />
+    <div class="container hero-inner">
+      <div class="hero-text">
+        <div class="hero-icon">
+          <img src="./assets/images/icon.png" alt="Habit Tracker アプリアイコン">
         </div>
-        <p class="qr-code-label">QRコードをスキャンして<br>App Storeで開く</p>
+        <h1>習慣アプリに、疲れていませんか？</h1>
+        <p class="hero-tagline">連続を追わない。積み上げだけを見る。<br>途切れても、あなたの努力は消えない習慣アプリ。</p>
+        <div class="hero-badges">
+          <span class="hero-badge">すべて無料</span>
+          <span class="hero-badge">広告なし</span>
+          <span class="hero-badge">アカウント不要</span>
+        </div>
+        <a href="https://apps.apple.com/app/habit-tracker-small-wins/id6757263291" class="hero-cta" target="_blank" rel="noopener noreferrer">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+          </svg>
+          App Storeでダウンロード
+        </a>
+        <div class="qr-code-container">
+          <div class="qr-code-wrapper">
+            <img id="hero-qr-code" alt="QR Code" />
+          </div>
+          <p class="qr-code-label">QRコードをスキャンして<br>App Storeで開く</p>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <img src="./assets/images/appstore_creative/1.jpg" alt="Habit Tracker - 連続しなくていい、積み上げだけを静かに見守る習慣アプリ" loading="eager">
       </div>
     </div>
   </header>
@@ -656,90 +740,6 @@
     </div>
   </section>
 
-  <!-- Features -->
-  <section>
-    <h2 class="section-title">特徴</h2>
-    <div class="features-grid">
-      <div class="feature-card">
-        <div class="feature-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#4c63ee" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"></circle>
-            <polyline points="12 6 12 12 16 14"></polyline>
-          </svg>
-        </div>
-        <h3>タップ1回で記録完了</h3>
-        <p>面倒な入力は不要。タップするだけで今日は「やった日」になります。</p>
-      </div>
-
-      <div class="feature-card">
-        <div class="feature-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#4c63ee" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-            <line x1="16" y1="2" x2="16" y2="6"></line>
-            <line x1="8" y1="2" x2="8" y2="6"></line>
-            <line x1="3" y1="10" x2="21" y2="10"></line>
-          </svg>
-        </div>
-        <h3>何か1つやれば、色がつく</h3>
-        <p>複数の習慣のうち1つでも実行すれば、ヒートマップに色がつきます。</p>
-      </div>
-
-      <div class="feature-card">
-        <div class="feature-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#4c63ee" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="18" y1="20" x2="18" y2="10"></line>
-            <line x1="12" y1="20" x2="12" y2="4"></line>
-            <line x1="6" y1="20" x2="6" y2="14"></line>
-          </svg>
-        </div>
-        <h3>連続ではなく、累計を可視化</h3>
-        <p>途切れても積み上げは消えない。累計の実行回数で成長を実感できます。</p>
-      </div>
-
-      <div class="feature-card">
-        <div class="feature-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#4c63ee" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 20V10"></path><path d="M18 20V4"></path><path d="M6 20v-4"></path>
-          </svg>
-        </div>
-        <h3>デイリー・ウィークリー・マンスリー</h3>
-        <p>週1回の運動も月1回の振り返りも。3つの頻度から自分のペースに合わせて設定できます。</p>
-      </div>
-
-      <div class="feature-card">
-        <div class="feature-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#4c63ee" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline>
-          </svg>
-        </div>
-        <h3>「できた」と「よくできた」の強度記録</h3>
-        <p>やっただけでなく、取り組みの深さも残せます。自分だけの基準でOK。</p>
-      </div>
-
-      <div class="feature-card">
-        <div class="feature-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#4c63ee" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-          </svg>
-        </div>
-        <h3>通知は1日1回、自分で決めた時間だけ</h3>
-        <p>邪魔しないけど、忘れさせない。通知のタイミングはあなたが決めます。</p>
-      </div>
-
-      <div class="feature-card">
-        <div class="feature-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#4c63ee" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-          </svg>
-        </div>
-        <h3>アカウント不要・データは端末内に保存</h3>
-        <p>面倒な登録なしですぐ始められます。データは外部に送信されません。</p>
-      </div>
-    </div>
-    <div class="section-cta">
-      <a href="https://apps.apple.com/app/habit-tracker-small-wins/id6757263291" class="inline-cta" target="_blank" rel="noopener noreferrer">無料でダウンロード</a>
-    </div>
-  </section>
 
   <!-- How It Works -->
   <section>
@@ -773,55 +773,34 @@
     </div>
   </section>
 
-  <!-- Screen Preview -->
+  <!-- Screen Preview Gallery -->
   <section>
     <h2 class="section-title">画面イメージ</h2>
-    <div class="screenshot-grid">
-      <div class="screenshot-item">
-        <div class="screenshot-placeholder has-image">
-          <img src="./assets/images/record.png" alt="記録画面">
-          <div class="placeholder-content">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-              <circle cx="8.5" cy="8.5" r="1.5"></circle>
-              <polyline points="21 15 16 10 5 21"></polyline>
-            </svg>
-            <span>記録画面</span>
-          </div>
+    <div class="gallery-wrapper">
+      <div class="gallery-scroll" id="gallery-scroll">
+        <div class="gallery-item">
+          <img src="./assets/images/appstore_creative/3.jpg" alt="1タップで記録完了 - 習慣リストからワンタップで記録" loading="lazy">
         </div>
-        <p class="screenshot-caption">記録画面</p>
-        <p class="screenshot-desc">ワンタップで習慣を記録。<br>シンプルで迷わない操作感。</p>
-      </div>
-      <div class="screenshot-item">
-        <div class="screenshot-placeholder has-image">
-          <img src="./assets/images/heatmap.png" alt="ヒートマップ">
-          <div class="placeholder-content">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-              <circle cx="8.5" cy="8.5" r="1.5"></circle>
-              <polyline points="21 15 16 10 5 21"></polyline>
-            </svg>
-            <span>ヒートマップ</span>
-          </div>
+        <div class="gallery-item">
+          <img src="./assets/images/appstore_creative/2.jpg" alt="カレンダービュー - 色の濃さで達成度を表示" loading="lazy">
         </div>
-        <p class="screenshot-caption">ヒートマップ</p>
-        <p class="screenshot-desc">継続の軌跡をひと目で確認。<br>色の濃さで達成度がわかる。</p>
-      </div>
-      <div class="screenshot-item">
-        <div class="screenshot-placeholder has-image">
-          <img src="./assets/images/review.png" alt="ふりかえり画面">
-          <div class="placeholder-content">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-              <circle cx="8.5" cy="8.5" r="1.5"></circle>
-              <polyline points="21 15 16 10 5 21"></polyline>
-            </svg>
-            <span>ふりかえり</span>
-          </div>
+        <div class="gallery-item">
+          <img src="./assets/images/appstore_creative/6.jpg" alt="途切れても積み上げは消えない - 累計実行数の推移グラフ" loading="lazy">
         </div>
-        <p class="screenshot-caption">ふりかえり</p>
-        <p class="screenshot-desc">実行の積み上げを確認。<br>次につながるヒントを提案。</p>
+        <div class="gallery-item">
+          <img src="./assets/images/appstore_creative/4.jpg" alt="週1でも月1でも - ウィークリー・マンスリー表示" loading="lazy">
+        </div>
+        <div class="gallery-item">
+          <img src="./assets/images/appstore_creative/8.jpg" alt="慣れてきたら強度も - できた・よくできた・ばっちりの3段階" loading="lazy">
+        </div>
+        <div class="gallery-item">
+          <img src="./assets/images/appstore_creative/5.jpg" alt="広告なし 通知は1日1回 - 通知設定画面" loading="lazy">
+        </div>
+        <div class="gallery-item">
+          <img src="./assets/images/appstore_creative/7.jpg" alt="習慣は変えていい - 習慣編集画面" loading="lazy">
+        </div>
       </div>
+      <div class="gallery-dots" id="gallery-dots"></div>
     </div>
   </section>
 
@@ -917,10 +896,43 @@
       };
     }
 
+    // ギャラリードットインジケーター
+    function initGalleryDots() {
+      const scroll = document.getElementById('gallery-scroll');
+      const dotsContainer = document.getElementById('gallery-dots');
+      if (!scroll || !dotsContainer) return;
+
+      const items = scroll.querySelectorAll('.gallery-item');
+      items.forEach(function(_, i) {
+        var dot = document.createElement('button');
+        dot.className = 'gallery-dot' + (i === 0 ? ' active' : '');
+        dot.setAttribute('aria-label', '画像 ' + (i + 1) + ' を表示');
+        dot.addEventListener('click', function() {
+          items[i].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+        });
+        dotsContainer.appendChild(dot);
+      });
+
+      var dots = dotsContainer.querySelectorAll('.gallery-dot');
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            var idx = Array.prototype.indexOf.call(items, entry.target);
+            dots.forEach(function(d, di) {
+              d.classList.toggle('active', di === idx);
+            });
+          }
+        });
+      }, { root: scroll, threshold: 0.6 });
+
+      items.forEach(function(item) { observer.observe(item); });
+    }
+
     // ページ読み込み後にQRコードを生成
     document.addEventListener('DOMContentLoaded', function() {
       generateQRCode('hero-qr-code', appStoreUrl);
       generateQRCode('cta-qr-code', appStoreUrl);
+      initGalleryDots();
     });
   </script>
 </body>
