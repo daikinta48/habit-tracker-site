@@ -47,7 +47,32 @@
       --radius-md: 12px;
       --radius-lg: 20px;
       --radius-xl: 24px;
+      /* Spacing rhythm (8px base) */
+      --space-xs: 4px;
+      --space-sm: 8px;
+      --space-md: 16px;
+      --space-lg: 24px;
+      --space-xl: 40px;
+      --space-2xl: 64px;
+      --space-3xl: 96px;
     }
+
+    /* ===== Scroll-triggered fade-in ===== */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s cubic-bezier(0.23, 1, 0.32, 1),
+                  transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .fade-up.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .fade-up-delay-1 { transition-delay: 0.08s; }
+    .fade-up-delay-2 { transition-delay: 0.16s; }
+    .fade-up-delay-3 { transition-delay: 0.24s; }
 
     * {
       margin: 0;
@@ -57,10 +82,12 @@
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Segoe UI", sans-serif;
-      line-height: 1.7;
+      line-height: 1.75;
       color: var(--text-body);
       background-color: var(--bg-main);
       -webkit-font-smoothing: antialiased;
+      font-feature-settings: "palt";
+      letter-spacing: 0.02em;
     }
 
     .container {
@@ -72,16 +99,16 @@
     /* ===== Hero Section ===== */
     .hero {
       text-align: center;
-      padding: 80px 20px 60px;
+      padding: var(--space-3xl) 20px var(--space-2xl);
     }
 
     .hero-icon {
-      width: 120px;
-      height: 120px;
-      margin: 0 auto 32px;
-      border-radius: 24px;
+      width: 100px;
+      height: 100px;
+      margin: 0 auto var(--space-lg);
+      border-radius: 22px;
       overflow: hidden;
-      box-shadow: 0 6px 24px rgba(76, 99, 238, 0.12);
+      box-shadow: 0 8px 30px rgba(76, 99, 238, 0.15);
     }
 
     .hero-icon img {
@@ -91,18 +118,20 @@
     }
 
     .hero h1 {
-      font-size: clamp(1.75rem, 5vw, 2.25rem);
-      font-weight: 700;
+      font-size: clamp(1.625rem, 4.5vw, 2.375rem);
+      font-weight: 800;
       color: var(--text-dark);
-      margin-bottom: 16px;
-      letter-spacing: -0.02em;
+      margin-bottom: var(--space-md);
+      letter-spacing: -0.03em;
+      line-height: 1.35;
     }
 
     .hero-tagline {
-      font-size: 1.125rem;
+      font-size: 1.0625rem;
       color: var(--text-muted);
-      margin-bottom: 32px;
-      line-height: 1.8;
+      margin-bottom: var(--space-lg);
+      line-height: 1.9;
+      letter-spacing: 0.01em;
     }
 
     .hero-cta {
@@ -115,20 +144,23 @@
       border-radius: var(--radius-lg);
       text-decoration: none;
       font-weight: 600;
-      font-size: 1rem;
-      transition: background 0.2s, transform 0.2s;
+      font-size: 0.9375rem;
+      letter-spacing: 0.01em;
+      transition: background 0.25s, transform 0.25s, box-shadow 0.25s;
+      box-shadow: 0 4px 14px rgba(76, 99, 238, 0.25);
     }
 
     .hero-cta:hover {
       background: var(--primary-dark);
       transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(76, 99, 238, 0.35);
     }
 
     .hero-badges {
       display: flex;
       justify-content: center;
-      gap: 12px;
-      margin-bottom: 28px;
+      gap: 10px;
+      margin-bottom: var(--space-lg);
       flex-wrap: wrap;
     }
 
@@ -136,15 +168,16 @@
       display: inline-block;
       background: var(--primary-light);
       color: var(--primary);
-      font-size: 0.875rem;
+      font-size: 0.8125rem;
       font-weight: 600;
-      padding: 6px 16px;
+      padding: 5px 14px;
       border-radius: 100px;
+      letter-spacing: 0.02em;
     }
 
     .hero-note {
-      margin-top: 16px;
-      font-size: 0.875rem;
+      margin-top: var(--space-md);
+      font-size: 0.8125rem;
       color: var(--text-muted);
     }
 
@@ -176,9 +209,9 @@
     }
 
     .hero-visual {
-      margin-top: 48px;
+      margin-top: var(--space-xl);
       position: relative;
-      max-width: 380px;
+      max-width: 360px;
       margin-left: auto;
       margin-right: auto;
     }
@@ -187,7 +220,12 @@
       width: 100%;
       height: auto;
       border-radius: var(--radius-xl);
-      box-shadow: 0 20px 60px rgba(76, 99, 238, 0.18), 0 4px 16px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 24px 64px rgba(76, 99, 238, 0.2), 0 4px 16px rgba(0, 0, 0, 0.06);
+      transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .hero-visual:hover img {
+      transform: scale(1.02);
     }
 
     .hero-visual::after {
@@ -195,7 +233,7 @@
       position: absolute;
       inset: 0;
       border-radius: var(--radius-xl);
-      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.15);
       pointer-events: none;
     }
 
@@ -212,15 +250,17 @@
 
     /* ===== Sections ===== */
     section {
-      padding: 48px 0;
+      padding: var(--space-2xl) 0;
     }
 
     .section-title {
-      font-size: 1.375rem;
+      font-size: 1.25rem;
       font-weight: 700;
       color: var(--text-dark);
       text-align: center;
-      margin-bottom: 32px;
+      margin-bottom: var(--space-xl);
+      letter-spacing: -0.01em;
+      line-height: 1.4;
     }
 
     /* ===== Pain Points Section ===== */
@@ -233,12 +273,18 @@
     .painpoint-item {
       display: flex;
       align-items: flex-start;
-      gap: 16px;
+      gap: var(--space-md);
       background: var(--bg-white);
       border-radius: var(--radius-md);
       padding: 20px 24px;
-      margin-bottom: 12px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      margin-bottom: 10px;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+      transition: box-shadow 0.25s, transform 0.25s;
+    }
+
+    .painpoint-item:hover {
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07);
+      transform: translateY(-1px);
     }
 
     .painpoint-item:last-child {
@@ -269,19 +315,20 @@
 
     /* ===== Philosophy Section ===== */
     .philosophy {
-      background: var(--bg-white);
+      background: linear-gradient(135deg, var(--bg-white) 0%, var(--primary-light) 100%);
       border-radius: var(--radius-xl);
-      padding: 40px 32px;
+      padding: var(--space-2xl) var(--space-xl);
       margin: 0 20px;
       box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
     }
 
     .philosophy-message {
-      font-size: 1.125rem;
+      font-size: 1.25rem;
       color: var(--text-dark);
       text-align: center;
       line-height: 2;
-      font-weight: 500;
+      font-weight: 600;
+      letter-spacing: -0.01em;
     }
 
     .philosophy-message strong {
@@ -299,7 +346,7 @@
       display: flex;
       gap: 20px;
       align-items: flex-start;
-      margin-bottom: 32px;
+      margin-bottom: var(--space-xl);
     }
 
     .step:last-child {
@@ -307,8 +354,8 @@
     }
 
     .step-number {
-      width: 40px;
-      height: 40px;
+      width: 36px;
+      height: 36px;
       background: var(--primary);
       color: #fff;
       border-radius: 50%;
@@ -316,20 +363,23 @@
       align-items: center;
       justify-content: center;
       font-weight: 700;
-      font-size: 1rem;
+      font-size: 0.875rem;
       flex-shrink: 0;
+      box-shadow: 0 3px 10px rgba(76, 99, 238, 0.25);
     }
 
     .step-content h3 {
-      font-size: 1rem;
-      font-weight: 600;
+      font-size: 0.9375rem;
+      font-weight: 700;
       color: var(--text-dark);
-      margin-bottom: 4px;
+      margin-bottom: 3px;
+      letter-spacing: -0.01em;
     }
 
     .step-content p {
-      font-size: 0.9375rem;
+      font-size: 0.875rem;
       color: var(--text-muted);
+      line-height: 1.7;
     }
 
     /* ===== Screen Preview Gallery ===== */
@@ -357,14 +407,15 @@
       scroll-snap-align: center;
       border-radius: var(--radius-xl);
       overflow: hidden;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.10), 0 2px 8px rgba(0, 0, 0, 0.06);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08), 0 1px 4px rgba(0, 0, 0, 0.04);
+      transition: transform 0.35s cubic-bezier(0.23, 1, 0.32, 1),
+                  box-shadow 0.35s cubic-bezier(0.23, 1, 0.32, 1);
       background: #0d1229;
     }
 
     .gallery-item:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 16px 48px rgba(76, 99, 238, 0.16), 0 4px 12px rgba(0, 0, 0, 0.08);
+      transform: translateY(-6px) scale(1.02);
+      box-shadow: 0 20px 48px rgba(76, 99, 238, 0.18), 0 4px 12px rgba(0, 0, 0, 0.06);
     }
 
     .gallery-item img {
@@ -411,18 +462,18 @@
     .founder-story {
       max-width: 600px;
       margin: 0 auto;
-      padding: 32px;
+      padding: var(--space-xl) 32px;
       background: var(--bg-white);
       border-radius: var(--radius-xl);
       box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
-      border-left: 4px solid var(--primary);
+      border-left: 3px solid var(--primary);
     }
 
     .founder-story p {
       font-size: 0.9375rem;
       color: var(--text-body);
-      line-height: 1.8;
-      margin-bottom: 16px;
+      line-height: 1.85;
+      margin-bottom: var(--space-md);
     }
 
     .founder-story p:last-child {
@@ -443,9 +494,15 @@
     .faq-item {
       background: var(--bg-white);
       border-radius: var(--radius-md);
-      padding: 24px;
-      margin-bottom: 16px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      padding: 22px 24px;
+      margin-bottom: 12px;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+      transition: box-shadow 0.25s, transform 0.25s;
+    }
+
+    .faq-item:hover {
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07);
+      transform: translateY(-1px);
     }
 
     .faq-item:last-child {
@@ -453,16 +510,17 @@
     }
 
     .faq-item h3 {
-      font-size: 1rem;
-      font-weight: 600;
+      font-size: 0.9375rem;
+      font-weight: 700;
       color: var(--text-dark);
-      margin-bottom: 8px;
+      margin-bottom: 6px;
+      letter-spacing: -0.01em;
     }
 
     .faq-item p {
-      font-size: 0.9375rem;
+      font-size: 0.875rem;
       color: var(--text-muted);
-      line-height: 1.7;
+      line-height: 1.75;
     }
 
     /* ===== Section Inline CTA ===== */
@@ -481,16 +539,19 @@
       text-decoration: none;
       font-weight: 600;
       font-size: 0.9375rem;
-      transition: background 0.2s, transform 0.2s;
+      letter-spacing: 0.01em;
+      transition: background 0.25s, transform 0.25s, box-shadow 0.25s;
+      box-shadow: 0 4px 14px rgba(76, 99, 238, 0.25);
     }
 
     .inline-cta:hover {
       background: var(--primary-dark);
       transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(76, 99, 238, 0.35);
     }
 
     .section-cta-note {
-      margin-top: 8px;
+      margin-top: var(--space-sm);
       font-size: 0.8125rem;
       color: var(--text-muted);
     }
@@ -498,35 +559,37 @@
     /* ===== CTA Section ===== */
     .cta-section {
       text-align: center;
-      padding: 60px 20px 80px;
+      padding: var(--space-2xl) 20px var(--space-3xl);
     }
 
     .cta-message {
-      font-size: 1.25rem;
+      font-size: 1.1875rem;
       color: var(--text-dark);
-      font-weight: 600;
-      margin-bottom: 24px;
+      font-weight: 700;
+      margin-bottom: var(--space-lg);
+      letter-spacing: -0.01em;
+      line-height: 1.6;
     }
 
     /* ===== Footer ===== */
     footer {
       background: var(--bg-white);
       border-top: 1px solid var(--border);
-      padding: 32px 20px;
+      padding: var(--space-xl) 20px;
       text-align: center;
     }
 
     .footer-links {
       display: flex;
       justify-content: center;
-      gap: 32px;
-      margin-bottom: 16px;
+      gap: var(--space-xl);
+      margin-bottom: var(--space-md);
     }
 
     .footer-links a {
       color: var(--text-muted);
       text-decoration: none;
-      font-size: 0.9375rem;
+      font-size: 0.875rem;
       transition: color 0.2s;
     }
 
@@ -535,7 +598,7 @@
     }
 
     .footer-copy {
-      font-size: 0.875rem;
+      font-size: 0.8125rem;
       color: var(--text-muted);
     }
 
@@ -621,11 +684,11 @@
     /* ===== Wide Desktop (1024px+) ===== */
     @media (min-width: 1024px) {
       .hero {
-        padding: 100px 20px 80px;
+        padding: 100px 20px var(--space-2xl);
       }
 
       .hero-inner {
-        gap: 64px;
+        gap: var(--space-2xl);
       }
 
       .hero-visual {
@@ -653,7 +716,7 @@
       }
 
       .hero {
-        padding: 60px 20px 48px;
+        padding: var(--space-2xl) 20px var(--space-xl);
       }
 
       .hero-text {
@@ -662,11 +725,15 @@
 
       .philosophy {
         margin: 0 12px;
-        padding: 32px 24px;
+        padding: var(--space-xl) var(--space-lg);
       }
 
       .footer-links {
-        gap: 24px;
+        gap: var(--space-lg);
+      }
+
+      section {
+        padding: var(--space-xl) 0;
       }
     }
   </style>
@@ -695,7 +762,7 @@
         </a>
         <div class="qr-code-container">
           <div class="qr-code-wrapper">
-            <img id="hero-qr-code" alt="QR Code" />
+            <img src="./assets/images/qr-appstore.png" alt="App Store QRコード" width="160" height="160" />
           </div>
           <p class="qr-code-label">QRコードをスキャンして<br>App Storeで開く</p>
         </div>
@@ -708,21 +775,21 @@
 
   <!-- Pain Points -->
   <section>
-    <h2 class="section-title">こんな経験、ありませんか？</h2>
+    <h2 class="section-title fade-up">こんな経験、ありませんか？</h2>
     <div class="painpoints">
-      <div class="painpoint-item">
+      <div class="painpoint-item fade-up fade-up-delay-1">
         <span class="painpoint-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="#e74c3c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
         </span>
         <p>「30日連続達成！」の通知に追われて、<strong>習慣が義務になっていた</strong></p>
       </div>
-      <div class="painpoint-item">
+      <div class="painpoint-item fade-up fade-up-delay-2">
         <span class="painpoint-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="#e74c3c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
         </span>
         <p>週1回の習慣なのに、<strong>やらない日が赤く表示される違和感</strong></p>
       </div>
-      <div class="painpoint-item">
+      <div class="painpoint-item fade-up fade-up-delay-3">
         <span class="painpoint-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="#e74c3c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
         </span>
@@ -733,7 +800,7 @@
 
   <!-- Philosophy -->
   <section>
-    <div class="philosophy">
+    <div class="philosophy fade-up">
       <p class="philosophy-message">
         途切れても、<strong>積み上げは残る。</strong>
       </p>
@@ -743,23 +810,23 @@
 
   <!-- How It Works -->
   <section>
-    <h2 class="section-title">使い方</h2>
+    <h2 class="section-title fade-up">使い方</h2>
     <div class="steps">
-      <div class="step">
+      <div class="step fade-up fade-up-delay-1">
         <div class="step-number">1</div>
         <div class="step-content">
           <h3>習慣を登録</h3>
           <p>続けたい習慣を追加。頻度やタグも設定できます。</p>
         </div>
       </div>
-      <div class="step">
+      <div class="step fade-up fade-up-delay-2">
         <div class="step-number">2</div>
         <div class="step-content">
           <h3>タップで記録</h3>
           <p>やったらタップ。それだけで今日の記録は完了です。</p>
         </div>
       </div>
-      <div class="step">
+      <div class="step fade-up fade-up-delay-3">
         <div class="step-number">3</div>
         <div class="step-content">
           <h3>ふりかえる</h3>
@@ -775,7 +842,7 @@
 
   <!-- Screen Preview Gallery -->
   <section>
-    <h2 class="section-title">画面イメージ</h2>
+    <h2 class="section-title fade-up">画面イメージ</h2>
     <div class="gallery-wrapper">
       <div class="gallery-scroll" id="gallery-scroll">
         <div class="gallery-item">
@@ -806,8 +873,8 @@
 
   <!-- Founder Story -->
   <section>
-    <h2 class="section-title">開発者の想い</h2>
-    <div class="founder-story">
+    <h2 class="section-title fade-up">開発者の想い</h2>
+    <div class="founder-story fade-up">
       <p>自分自身、習慣で人生が変わった一人です。でも完璧に続いたことは一度もない。<strong>止まった期間も、やらなかった日もあった。</strong>それでも振り返ると、確実に前に進んでいました。</p>
       <p>だから、<strong>止まっても戻れる、波があっても前に進んでいることが見えるアプリ</strong>を作りました。</p>
     </div>
@@ -815,7 +882,7 @@
 
   <!-- FAQ -->
   <section>
-    <h2 class="section-title">よくある質問</h2>
+    <h2 class="section-title fade-up">よくある質問</h2>
     <div class="faq-list">
       <div class="faq-item">
         <h3>三日坊主になっても大丈夫ですか？</h3>
@@ -838,7 +905,7 @@
 
   <!-- CTA -->
   <section class="cta-section">
-    <p class="cta-message">連続しなくていい。変わってもいい。<br class="sp-hide">それでも、あなたは確実に前に進んでいます。</p>
+    <p class="cta-message fade-up">連続しなくていい。変わってもいい。<br class="sp-hide">それでも、あなたは確実に前に進んでいます。</p>
     <a href="https://apps.apple.com/app/habit-tracker-small-wins/id6757263291" class="hero-cta" target="_blank" rel="noopener noreferrer">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
@@ -848,7 +915,7 @@
     </a>
     <div class="qr-code-container">
       <div class="qr-code-wrapper">
-        <img id="cta-qr-code" alt="QR Code" />
+        <img src="./assets/images/qr-appstore.png" alt="App Store QRコード" width="160" height="160" />
       </div>
       <p class="qr-code-label">QRコードをスキャンして<br>App Storeで開く</p>
     </div>
@@ -864,27 +931,6 @@
   </footer>
 
   <script>
-    // App Store URL
-    const appStoreUrl = 'https://apps.apple.com/app/habit-tracker-small-wins/id6757263291';
-
-    // QRコード生成関数（Google Charts APIを使用）
-    function generateQRCode(imgId, url) {
-      const img = document.getElementById(imgId);
-      if (!img) {
-        console.error('画像要素が見つかりません:', imgId);
-        return;
-      }
-
-      // Google Charts APIを使用してQRコードを生成
-      const encodedUrl = encodeURIComponent(url);
-      const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodedUrl}`;
-      
-      img.src = qrCodeUrl;
-      img.onerror = function() {
-        console.error('QRコード画像の読み込みに失敗しました:', imgId);
-      };
-    }
-
     // ギャラリードットインジケーター
     function initGalleryDots() {
       const scroll = document.getElementById('gallery-scroll');
@@ -917,11 +963,28 @@
       items.forEach(function(item) { observer.observe(item); });
     }
 
+    // スクロール連動フェードインアニメーション
+    function initScrollAnimations() {
+      var targets = document.querySelectorAll('.fade-up');
+      if (!('IntersectionObserver' in window)) {
+        targets.forEach(function(el) { el.classList.add('is-visible'); });
+        return;
+      }
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+      targets.forEach(function(el) { observer.observe(el); });
+    }
+
     // ページ読み込み後にQRコードを生成
     document.addEventListener('DOMContentLoaded', function() {
-      generateQRCode('hero-qr-code', appStoreUrl);
-      generateQRCode('cta-qr-code', appStoreUrl);
       initGalleryDots();
+      initScrollAnimations();
     });
   </script>
 </body>
