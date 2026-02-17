@@ -1,0 +1,3 @@
+[submodule "habit-tracker"]
+	path = habit-tracker
+	url = https://github.com/daikinta48/habit-tracker.git
