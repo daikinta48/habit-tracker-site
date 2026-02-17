@@ -6,11 +6,28 @@
   <link rel="icon" href="/favicon.ico">
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
-  <title>Habit Tracker - 連続しなくていい習慣アプリ</title>
-  <meta name="description" content="Habit Trackerは、連続を追わない習慣アプリ。途切れても積み上げは消えない。何か1つやれば、今日は「やった日」。">
+  <title>Habit Tracker - 連続しなくていい習慣アプリ｜三日坊主でも続く習慣トラッカー</title>
+  <meta name="description" content="習慣が続かない、三日坊主で自信をなくした——そんなあなたのための習慣アプリ。連続を追わず、積み上げだけを見る。すべて無料・広告なし。アカウント不要ですぐ始められます。">
+  <meta name="keywords" content="習慣管理,習慣トラッカー,ルーティン,継続,シンプル,自己管理,三日坊主,ヒートマップ,習慣化,積み上げ,習慣アプリ,習慣 続かない">
   <meta property="og:title" content="Habit Tracker - 連続しなくていい習慣アプリ">
-  <meta property="og:description" content="連続を追わない。途切れても積み上げは消えない。何か1つやれば、今日は「やった日」。">
+  <meta property="og:description" content="習慣アプリに疲れていませんか？連続を追わず、積み上げだけを見る。途切れても、あなたの努力は消えない。すべて無料・広告なし。">
   <meta property="og:type" content="website">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Habit Tracker",
+    "operatingSystem": "iOS",
+    "applicationCategory": "LifestyleApplication",
+    "description": "連続を追わない習慣アプリ。途切れても積み上げは消えない。すべて無料・広告なし。",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "JPY"
+    },
+    "url": "https://apps.apple.com/app/habit-tracker-small-wins/id6757263291"
+  }
+  </script>
   <style>
     :root {
       --primary: #4c63ee;
@@ -107,6 +124,24 @@
       transform: translateY(-2px);
     }
 
+    .hero-badges {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: var(--primary-light);
+      color: var(--primary);
+      font-size: 0.875rem;
+      font-weight: 600;
+      padding: 6px 16px;
+      border-radius: 100px;
+    }
+
     .hero-note {
       margin-top: 16px;
       font-size: 0.875rem;
@@ -142,7 +177,7 @@
 
     @media (max-width: 600px) {
       .qr-code-container {
-        margin-top: 20px;
+        display: none;
       }
     }
 
@@ -157,6 +192,50 @@
       color: var(--text-dark);
       text-align: center;
       margin-bottom: 32px;
+    }
+
+    /* ===== Pain Points Section ===== */
+    .painpoints {
+      max-width: 560px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .painpoint-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      background: var(--bg-white);
+      border-radius: var(--radius-md);
+      padding: 20px 24px;
+      margin-bottom: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    .painpoint-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .painpoint-icon {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      margin-top: 2px;
+    }
+
+    .painpoint-icon svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .painpoint-item p {
+      font-size: 0.9375rem;
+      color: var(--text-body);
+      line-height: 1.7;
+    }
+
+    .painpoint-item strong {
+      color: var(--text-dark);
     }
 
     /* ===== Philosophy Section ===== */
@@ -340,6 +419,32 @@
       line-height: 1.6;
     }
 
+    /* ===== Founder Story Section ===== */
+    .founder-story {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 32px;
+      background: var(--bg-white);
+      border-radius: var(--radius-xl);
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+      border-left: 4px solid var(--primary);
+    }
+
+    .founder-story p {
+      font-size: 0.9375rem;
+      color: var(--text-body);
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+
+    .founder-story p:last-child {
+      margin-bottom: 0;
+    }
+
+    .founder-story strong {
+      color: var(--text-dark);
+    }
+
     /* ===== FAQ Section ===== */
     .faq-list {
       max-width: 600px;
@@ -370,6 +475,36 @@
       font-size: 0.9375rem;
       color: var(--text-muted);
       line-height: 1.7;
+    }
+
+    /* ===== Section Inline CTA ===== */
+    .section-cta {
+      text-align: center;
+      margin-top: 32px;
+      padding: 0 20px;
+    }
+
+    .inline-cta {
+      display: inline-block;
+      background: var(--primary);
+      color: #fff;
+      padding: 12px 28px;
+      border-radius: var(--radius-lg);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9375rem;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .inline-cta:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+
+    .section-cta-note {
+      margin-top: 8px;
+      font-size: 0.8125rem;
+      color: var(--text-muted);
     }
 
     /* ===== CTA Section ===== */
@@ -460,8 +595,13 @@
       <div class="hero-icon">
         <img src="./assets/images/icon.png" alt="Habit Tracker アプリアイコン">
       </div>
-      <h1>Habit Tracker</h1>
-      <p class="hero-tagline">連続しなくていい。変わってもいい。<br>途切れても、積み上げは消えない。</p>
+      <h1>習慣アプリに、疲れていませんか？</h1>
+      <p class="hero-tagline">連続を追わない。積み上げだけを見る。<br>途切れても、あなたの努力は消えない習慣アプリ。</p>
+      <div class="hero-badges">
+        <span class="hero-badge">すべて無料</span>
+        <span class="hero-badge">広告なし</span>
+        <span class="hero-badge">アカウント不要</span>
+      </div>
       <a href="https://apps.apple.com/app/habit-tracker-small-wins/id6757263291" class="hero-cta" target="_blank" rel="noopener noreferrer">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
@@ -478,16 +618,38 @@
     </div>
   </header>
 
+  <!-- Pain Points -->
+  <section>
+    <h2 class="section-title">こんな経験、ありませんか？</h2>
+    <div class="painpoints">
+      <div class="painpoint-item">
+        <span class="painpoint-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#e74c3c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+        </span>
+        <p>「30日連続達成！」の通知に追われて、<strong>習慣が義務になっていた</strong></p>
+      </div>
+      <div class="painpoint-item">
+        <span class="painpoint-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#e74c3c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+        </span>
+        <p>週1回の習慣なのに、<strong>やらない日が赤く表示される違和感</strong></p>
+      </div>
+      <div class="painpoint-item">
+        <span class="painpoint-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#e74c3c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+        </span>
+        <p>1日途切れただけで連続記録がリセットされ、<strong>やる気を失った</strong></p>
+      </div>
+    </div>
+  </section>
+
   <!-- Philosophy -->
   <section>
     <div class="philosophy">
       <p class="philosophy-message">
-        習慣は、変わっていい。<br>
-        続かなくても、また始めればいい。<br><br>
-        続かなかったのは、<br>
-        意志が弱いからじゃない。<br>
-        <strong>生活が変わっただけ。<br>
-          新しい挑戦を始めただけ。</strong><br><br>
+        Habit Trackerは、<strong>連続を誉めない。積み上げだけを見る。</strong><br><br>
+        続かなかったのは、意志が弱いからじゃない。<br>
+        <strong>生活が変わっただけ。新しい挑戦を始めただけ。</strong><br><br>
         やった日も、やらなかった日も、<br>
         すべてが「成長の過程」。
       </p>
@@ -533,6 +695,49 @@
         <h3>連続ではなく、累計を可視化</h3>
         <p>途切れても積み上げは消えない。累計の実行回数で成長を実感できます。</p>
       </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#4c63ee" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 20V10"></path><path d="M18 20V4"></path><path d="M6 20v-4"></path>
+          </svg>
+        </div>
+        <h3>デイリー・ウィークリー・マンスリー</h3>
+        <p>週1回の運動も月1回の振り返りも。3つの頻度から自分のペースに合わせて設定できます。</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#4c63ee" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline>
+          </svg>
+        </div>
+        <h3>「できた」と「よくできた」の強度記録</h3>
+        <p>やっただけでなく、取り組みの深さも残せます。自分だけの基準でOK。</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#4c63ee" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+          </svg>
+        </div>
+        <h3>通知は1日1回、自分で決めた時間だけ</h3>
+        <p>邪魔しないけど、忘れさせない。通知のタイミングはあなたが決めます。</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#4c63ee" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+        </div>
+        <h3>アカウント不要・データは端末内に保存</h3>
+        <p>面倒な登録なしですぐ始められます。データは外部に送信されません。</p>
+      </div>
+    </div>
+    <div class="section-cta">
+      <a href="https://apps.apple.com/app/habit-tracker-small-wins/id6757263291" class="inline-cta" target="_blank" rel="noopener noreferrer">無料でダウンロード</a>
     </div>
   </section>
 
@@ -561,6 +766,10 @@
           <p>ヒートマップと分析機能で、自分の歩みを確認できます。</p>
         </div>
       </div>
+    </div>
+    <div class="section-cta">
+      <a href="https://apps.apple.com/app/habit-tracker-small-wins/id6757263291" class="inline-cta" target="_blank" rel="noopener noreferrer">今すぐ始める</a>
+      <p class="section-cta-note">無料・広告なし・アカウント不要</p>
     </div>
   </section>
 
@@ -613,6 +822,18 @@
         <p class="screenshot-caption">ふりかえり</p>
         <p class="screenshot-desc">実行の積み上げを確認。<br>次につながるヒントを提案。</p>
       </div>
+    </div>
+  </section>
+
+  <!-- Founder Story -->
+  <section>
+    <h2 class="section-title">開発者の想い</h2>
+    <div class="founder-story">
+      <p>このアプリは、開発者自身の原体験から生まれました。</p>
+      <p>習慣を続けることで人生は変わりました。自己効力感がつき、「コツコツやれば変われる」と実感できるようになりました。</p>
+      <p>でも、その習慣は決して完璧ではなかった。<br><strong>やらない日もあった。止まった期間もあった。</strong><br>それでも長期的に振り返ると、確実に前に進んでいました。</p>
+      <p>既存の習慣アプリは「連続」を重視するあまり、空白が失敗に見えてしまう。1日途切れただけでやる気を失うこともありました。</p>
+      <p>だから、<strong>止まっても戻れる、波があっても前に進んでいることが見えるアプリ</strong>を作ろうと決めました。</p>
     </div>
   </section>
 
