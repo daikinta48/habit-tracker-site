@@ -1,0 +1,39 @@
+:root {
+  --primary: #4c63ee;
+  --primary-light: #edf0ff;
+  --primary-dark: #3a4fd9;
+  --text-dark: #1d2230;
+  --text-body: #4a5264;
+  --text-muted: #6d7486;
+  --bg-main: #f4f6fb;
+  --bg-white: #ffffff;
+  --border: #e5e7eb;
+  --heatmap-1: #DBEAFE;
+  --heatmap-2: #93C5FD;
+  --heatmap-3: #60A5FA;
+  --heatmap-4: #2563EB;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 24px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Segoe UI", sans-serif;
+  line-height: 1.7;
+  color: var(--text-body);
+  background-color: var(--bg-main);
+  -webkit-font-smoothing: antialiased;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 20px;
+}

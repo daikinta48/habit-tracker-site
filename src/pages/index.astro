@@ -1,0 +1,41 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroSection from '../components/HeroSection.astro';
+import PhilosophySection from '../components/PhilosophySection.astro';
+import FeaturesSection from '../components/FeaturesSection.astro';
+import HowItWorksSection from '../components/HowItWorksSection.astro';
+import ScreenPreviewSection from '../components/ScreenPreviewSection.astro';
+import FaqSection from '../components/FaqSection.astro';
+import CtaSection from '../components/CtaSection.astro';
+import Footer from '../components/Footer.astro';
+---
+<BaseLayout
+  title="Habit Tracker - 連続しなくていい習慣アプリ"
+  description="Habit Trackerは、連続を追わない習慣アプリ。途切れても積み上げは消えない。何か1つやれば、今日は「やった日」。"
+>
+  <HeroSection />
+  <PhilosophySection />
+  <FeaturesSection />
+  <HowItWorksSection />
+  <ScreenPreviewSection />
+  <FaqSection />
+  <CtaSection />
+  <Footer />
+</BaseLayout>
+
+<script>
+  const appStoreUrl = 'https://apps.apple.com/app/habit-tracker-small-wins/id6757263291';
+
+  function generateQRCode(imgId: string, url: string) {
+    const img = document.getElementById(imgId) as HTMLImageElement | null;
+    if (!img) return;
+    const encodedUrl = encodeURIComponent(url);
+    img.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodedUrl}`;
+    img.onerror = () => console.error('QRコード読み込み失敗:', imgId);
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    generateQRCode('hero-qr-code', appStoreUrl);
+    generateQRCode('cta-qr-code', appStoreUrl);
+  });
+</script>

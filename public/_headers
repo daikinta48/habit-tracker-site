@@ -1,0 +1,6 @@
+/assets/images/*.png
+  Content-Type: image/png
+
+/favicon.ico
+  Content-Type: image/x-icon
+

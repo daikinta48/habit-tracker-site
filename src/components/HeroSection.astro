@@ -1,0 +1,116 @@
+---
+---
+<header class="hero">
+  <div class="container">
+    <div class="hero-icon">
+      <img src="/assets/images/icon.png" alt="Habit Tracker アプリアイコン">
+    </div>
+    <h1>Habit Tracker</h1>
+    <p class="hero-tagline">連続しなくていい。変わってもいい。<br>途切れても、積み上げは消えない。</p>
+    <a href="https://apps.apple.com/app/habit-tracker-small-wins/id6757263291" class="hero-cta" target="_blank" rel="noopener noreferrer">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+        <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+      </svg>
+      App Storeでダウンロード
+    </a>
+    <div class="qr-code-container">
+      <div class="qr-code-wrapper">
+        <img id="hero-qr-code" alt="QR Code" />
+      </div>
+      <p class="qr-code-label">QRコードをスキャンして<br>App Storeで開く</p>
+    </div>
+  </div>
+</header>
+
+<style>
+  .hero {
+    text-align: center;
+    padding: 80px 20px 60px;
+  }
+
+  .hero-icon {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 32px;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 6px 24px rgba(76, 99, 238, 0.12);
+  }
+
+  .hero-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .hero h1 {
+    font-size: clamp(1.75rem, 5vw, 2.25rem);
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
+  }
+
+  .hero-tagline {
+    font-size: 1.125rem;
+    color: var(--text-muted);
+    margin-bottom: 32px;
+    line-height: 1.8;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--primary);
+    color: #fff;
+    padding: 14px 32px;
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: background 0.2s, transform 0.2s;
+  }
+
+  .hero-cta:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+  }
+
+  .qr-code-container {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .qr-code-wrapper {
+    background: var(--bg-white);
+    padding: 16px;
+    border-radius: var(--radius-md);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    display: inline-block;
+  }
+
+  .qr-code-wrapper img {
+    display: block;
+  }
+
+  .qr-code-label {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    text-align: center;
+  }
+
+  @media (max-width: 600px) {
+    .hero {
+      padding: 60px 20px 48px;
+    }
+
+    .qr-code-container {
+      margin-top: 20px;
+    }
+  }
+</style>
