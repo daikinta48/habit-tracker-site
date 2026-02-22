@@ -3,21 +3,44 @@ import { getCollection } from 'astro:content';
 import BlogPostLayout from '../../layouts/BlogPostLayout.astro';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('blog');
+  const posts = await getCollection('blog', ({ data }) => {
+    return import.meta.env.PROD ? data.draft !== true : true;
+  });
   return posts.map((post) => ({
     params: { slug: post.slug },
-    props: { post },
+    props: { post, allPosts: posts },
   }));
 }
 
-const { post } = Astro.props;
+const { post, allPosts } = Astro.props;
 const { Content } = await post.render();
+
+// 読了時間（約500文字/分）
+const readingTime = Math.max(1, Math.ceil(post.body.length / 500));
+
+// 関連記事（タグが一致する記事を最大3件）
+const relatedPosts = allPosts
+  .filter(
+    (p) =>
+      p.slug !== post.slug &&
+      p.data.tags?.some((t) => post.data.tags?.includes(t))
+  )
+  .sort((a, b) => {
+    const aScore = (a.data.tags ?? []).filter((t) => post.data.tags?.includes(t)).length;
+    const bScore = (b.data.tags ?? []).filter((t) => post.data.tags?.includes(t)).length;
+    return bScore - aScore;
+  })
+  .slice(0, 3);
 ---
 <BlogPostLayout
   title={post.data.title}
   description={post.data.description}
   pubDate={post.data.pubDate}
   updatedDate={post.data.updatedDate}
+  tags={post.data.tags}
+  readingTime={readingTime}
+  relatedPosts={relatedPosts}
+  slug={post.slug}
 >
   <Content />
 </BlogPostLayout>

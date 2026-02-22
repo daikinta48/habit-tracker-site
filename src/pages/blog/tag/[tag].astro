@@ -1,30 +1,48 @@
 ---
 import { getCollection } from 'astro:content';
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import Footer from '../../components/Footer.astro';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Footer from '../../../components/Footer.astro';
 
-const posts = (await getCollection('blog', ({ data }) => {
-  return import.meta.env.PROD ? data.draft !== true : true;
-})).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+export async function getStaticPaths() {
+  const allPosts = await getCollection('blog', ({ data }) => {
+    return import.meta.env.PROD ? data.draft !== true : true;
+  });
 
-// タグ集計
-const tagCounts = new Map<string, number>();
-for (const post of posts) {
-  for (const tag of post.data.tags ?? []) {
-    tagCounts.set(tag, (tagCounts.get(tag) ?? 0) + 1);
-  }
+  const tags = [...new Set(allPosts.flatMap((p) => p.data.tags ?? []))];
+
+  return tags.map((tag) => ({
+    params: { tag },
+    props: {
+      tag,
+      posts: allPosts
+        .filter((p) => p.data.tags?.includes(tag))
+        .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()),
+      allTags: [...new Map(
+        allPosts.flatMap((p) =>
+          (p.data.tags ?? []).map((t) => [t, (allPosts.filter((pp) => pp.data.tags?.includes(t)).length)])
+        )
+      ).entries()].sort((a, b) => b[1] - a[1]),
+    },
+  }));
 }
-const allTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1]);
 
-// 読了時間（約500文字/分）
+const { tag, posts, allTags } = Astro.props;
+
 function readingTime(body: string) {
   return Math.max(1, Math.ceil(body.length / 500));
 }
 ---
-<BaseLayout title="ブログ - Habit Tracker" description="Habit Trackerの開発ストーリーや習慣に関するブログです。">
+<BaseLayout
+  title={`「${tag}」の記事一覧 - Habit Tracker`}
+  description={`「${tag}」タグがついたブログ記事の一覧です。`}
+>
   <div class="container">
     <header class="blog-header">
-      <h1>ブログ</h1>
+      <a href="/blog" class="back-link">← ブログ一覧</a>
+      <h1>
+        <span class="tag-label">タグ</span>
+        {tag}
+      </h1>
       <p class="post-count">{posts.length}件の記事</p>
     </header>
 
@@ -32,10 +50,14 @@ function readingTime(body: string) {
       <section class="tag-cloud" aria-label="タグで絞り込む">
         <p class="tag-cloud-label">タグで絞り込む</p>
         <div class="tag-list">
-          <a href="/blog" class="tag-btn tag-btn--all" aria-current="page">すべて</a>
-          {allTags.map(([tag, count]) => (
-            <a href={`/blog/tag/${tag}`} class="tag-btn">
-              {tag}
+          <a href="/blog" class="tag-btn">すべて</a>
+          {allTags.map(([t, count]) => (
+            <a
+              href={`/blog/tag/${t}`}
+              class={`tag-btn${t === tag ? ' tag-btn--active' : ''}`}
+              aria-current={t === tag ? 'page' : undefined}
+            >
+              {t}
               <span class="tag-btn-count">{count}</span>
             </a>
           ))}
@@ -44,7 +66,7 @@ function readingTime(body: string) {
     )}
 
     {posts.length === 0 ? (
-      <p class="empty">記事はまだありません。</p>
+      <p class="empty">この タグの記事はまだありません。</p>
     ) : (
       <ul class="post-list">
         {posts.map((post) => (
@@ -61,8 +83,11 @@ function readingTime(body: string) {
             </a>
             {post.data.tags && post.data.tags.length > 0 && (
               <div class="tags">
-                {post.data.tags.map((tag) => (
-                  <a href={`/blog/tag/${tag}`} class="tag">{tag}</a>
+                {post.data.tags.map((t) => (
+                  <a
+                    href={`/blog/tag/${t}`}
+                    class={`tag${t === tag ? ' tag--active' : ''}`}
+                  >{t}</a>
                 ))}
               </div>
             )}
@@ -77,17 +102,40 @@ function readingTime(body: string) {
 <style>
   .blog-header {
     padding: 48px 0 24px;
-    display: flex;
-    align-items: baseline;
-    gap: 16px;
-    flex-wrap: wrap;
+  }
+
+  .back-link {
+    display: inline-block;
+    color: var(--primary);
+    text-decoration: none;
+    font-size: 0.9375rem;
+    margin-bottom: 16px;
+  }
+
+  .back-link:hover {
+    text-decoration: underline;
   }
 
   .blog-header h1 {
-    font-size: 2rem;
+    font-size: 1.875rem;
     font-weight: 700;
     color: var(--text-dark);
     letter-spacing: -0.02em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+  }
+
+  .tag-label {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--primary);
+    background: var(--primary-light);
+    padding: 4px 10px;
+    border-radius: 99px;
+    letter-spacing: 0.02em;
   }
 
   .post-count {
@@ -136,16 +184,16 @@ function readingTime(body: string) {
     background: var(--primary-light);
   }
 
-  .tag-btn--all {
+  .tag-btn--active {
     border-color: var(--primary);
     background: var(--primary);
     color: #fff;
   }
 
-  .tag-btn--all:hover {
+  .tag-btn--active:hover {
     background: var(--primary-dark);
-    color: #fff;
     border-color: var(--primary-dark);
+    color: #fff;
   }
 
   .tag-btn-count {
@@ -162,7 +210,7 @@ function readingTime(body: string) {
     line-height: 1;
   }
 
-  .tag-btn--all .tag-btn-count {
+  .tag-btn--active .tag-btn-count {
     background: rgba(255, 255, 255, 0.25);
   }
 
@@ -180,7 +228,6 @@ function readingTime(body: string) {
     padding-bottom: 80px;
   }
 
-  /* カード（stretched-link パターン） */
   .post-card {
     position: relative;
     background: var(--bg-white);
@@ -200,7 +247,6 @@ function readingTime(body: string) {
     text-decoration: none;
   }
 
-  /* カード全体をクリック可能にする */
   .card-link::after {
     content: '';
     position: absolute;
@@ -247,7 +293,6 @@ function readingTime(body: string) {
     margin: 0;
   }
 
-  /* タグ（stretched-link より前面に） */
   .tags {
     position: relative;
     z-index: 2;
@@ -270,7 +315,8 @@ function readingTime(body: string) {
     z-index: 2;
   }
 
-  .tag:hover {
+  .tag:hover,
+  .tag--active {
     background: var(--primary);
     color: #fff;
   }

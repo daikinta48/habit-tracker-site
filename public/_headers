@@ -1,6 +1,24 @@
+# 静的アセット（画像）- 長期キャッシュ
 /assets/images/*.png
   Content-Type: image/png
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/images/*.jpg
+  Cache-Control: public, max-age=31536000, immutable
 
 /favicon.ico
   Content-Type: image/x-icon
+  Cache-Control: public, max-age=86400
 
+# JS / CSS - コンテンツハッシュ付きなので長期キャッシュ
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# HTML ページ - 毎回再検証
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  X-XSS-Protection: 1; mode=block
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+  Cache-Control: public, max-age=0, must-revalidate

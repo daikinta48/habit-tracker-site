@@ -1,10 +1,109 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+const siteUrl = 'https://habit-tracker-site.pages.dev';
+
+const websiteJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'Habit Tracker',
+  url: siteUrl,
+  description: '連続を追わない習慣アプリ。途切れても積み上げは消えない。すべて無料・広告なし。',
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: {
+      '@type': 'EntryPoint',
+      urlTemplate: `${siteUrl}/blog?q={search_term_string}`,
+    },
+    'query-input': 'required name=search_term_string',
+  },
+};
+
+const softwareJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'Habit Tracker - 連続しなくていい習慣アプリ',
+  operatingSystem: 'iOS',
+  applicationCategory: 'LifestyleApplication',
+  description: '連続を追わない習慣アプリ。途切れても積み上げは消えない。すべて無料・広告なし。アカウント不要ですぐ始められます。',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'JPY',
+  },
+  url: 'https://apps.apple.com/app/habit-tracker-small-wins/id6757263291',
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: '5',
+    ratingCount: '1',
+  },
+};
+
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: '三日坊主になっても大丈夫ですか？',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'はい、大丈夫です。このアプリは「空白は失敗ではない」という考えで設計されています。記録が途切れても、いつでも気軽に再開できます。',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '毎日やらないといけませんか？',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'いいえ。日次・週次・月次から頻度を選べます。自分の生活リズムに合わせて設定してください。',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '習慣を変更することはできますか？',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'もちろんです。習慣は固定するものではなく、生活の変化に合わせて更新していくものだと考えています。',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'データはどこに保存されますか？',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'すべてのデータはお使いの端末内に保存されます。外部サーバーへの送信はありません。',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '無料で使えますか？',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'はい、すべての機能を無料でご利用いただけます。',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '有料プランはありますか？',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: '現在はすべての機能を無料でご利用いただけます。今後、サービス改善のために有料オプションを追加する可能性はありますが、その際は事前に十分な案内を行います。',
+      },
+    },
+  ],
+};
 ---
 <BaseLayout
   title="Habit Tracker - 連続しなくていい習慣アプリ｜三日坊主でも続く習慣トラッカー"
   description="習慣が続かない、三日坊主で自信をなくした——そんなあなたのための習慣アプリ。連続を追わず、積み上げだけを見る。すべて無料・広告なし。アカウント不要ですぐ始められます。"
+  canonicalPath="/"
 >
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(websiteJsonLd)} />
+    <script type="application/ld+json" set:html={JSON.stringify(softwareJsonLd)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} />
+  </Fragment>
   <style is:global>
     :root {
       --primary: #4c63ee;
