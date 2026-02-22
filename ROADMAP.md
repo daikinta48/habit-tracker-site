@@ -2,8 +2,9 @@
 
 ## 現状
 
-- 静的HTML（`index.html` 1枚）のランディングページ
-- Cloudflare Pages でホスティング
+- Astro 静的サイト（Cloudflare Pages でホスティング）
+- ブログ記事15件公開済み
+- SEO基盤（sitemap・JSON-LD・OGP・canonical）実装済み
 
 ## 方針
 
@@ -11,21 +12,35 @@ Cloudflare Pages をそのまま活かしつつ、段階的に機能を拡張す
 
 ---
 
-## Phase 1：Astroへ移行 ＋ ブログ追加（優先）
+## Phase 1：Astroへ移行 ＋ ブログ追加 ✅ 完了
 
-- 現在の静的HTMLを **Astro** に移植
-- デザイン・CSSはそのまま移植
-- ブログ記事は Markdownファイル（`.md`）で管理
-  - `src/content/blog/` 以下に記事を置く
-  - GitHubにpushするだけで公開される
-- Cloudflare Pages のビルド設定を Astro 向けに変更（`npm run build` / output: `dist/`）
+- [x] 静的HTMLを Astro に移植
+- [x] ブログ記事を Markdown で管理（`src/content/blog/`）
+- [x] タグ・関連記事・読了時間の実装
+- [x] Google Analytics 導入
 
-**URL構成（予定）：**
-```
-/          ← 既存ランディングページ
-/blog      ← ブログ一覧
-/blog/xxx  ← 個別記事
-```
+### SEO基盤 ✅ 完了
+
+- [x] `@astrojs/sitemap` で sitemap-index.xml を自動生成
+- [x] `robots.txt` を作成（Sitemap URL 明記）
+- [x] BaseLayout に canonical・OGP完全実装（og:url / og:image / og:site_name / og:locale）
+- [x] Twitter Card メタタグ
+- [x] BlogPosting JSON-LD（各ブログ記事）
+- [x] BreadcrumbList JSON-LD（各ブログ記事）
+- [x] WebSite / SoftwareApplication / FAQPage JSON-LD（トップページ）
+- [x] Cloudflare _headers にセキュリティヘッダー・長期キャッシュを追加
+
+### SEO残タスク（コードで対応不可）
+
+- [ ] **OG画像を作成する** — 1200×630px の画像を `/public/assets/images/og-default.jpg` に追加
+  - 現在はアプリスクリーンショット（`appstore_creative/1.jpg`）を流用中
+  - SNSシェア時の見栄えが大きく変わるので優先度高
+- [ ] **Google Search Console にサイトマップを登録**
+  - URL: `https://habit-tracker-site.pages.dev/sitemap-index.xml`
+  - カスタムドメイン取得後は URL を更新して再登録
+- [ ] **カスタムドメイン取得・設定**
+  - 取得後に `astro.config.mjs` の `site:` と `public/robots.txt` の Sitemap URL を更新
+  - Cloudflare Pages のカスタムドメイン設定を行う
 
 ---
 
@@ -50,11 +65,12 @@ Cloudflare Pages をそのまま活かしつつ、段階的に機能を拡張す
 
 ---
 
-## 技術スタック（移行後）
+## 技術スタック
 
 | レイヤー | 技術 |
 |---------|------|
-| フレームワーク | Astro |
+| フレームワーク | Astro 5 |
 | コンテンツ | Markdown（`.md`） |
 | ホスティング | Cloudflare Pages |
+| サイトマップ | @astrojs/sitemap |
 | EC（将来） | Shopify Buyボタン or Shopify Starter |
