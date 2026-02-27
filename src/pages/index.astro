@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-const siteUrl = 'https://habit-tracker-site.pages.dev';
+const siteUrl = Astro.site?.href.replace(/\/$/, '') ?? 'https://smallwinsjp.com';
 
 const websiteJsonLd = {
   '@context': 'https://schema.org',
@@ -803,7 +803,7 @@ const faqJsonLd = {
     <div class="container hero-inner">
       <div class="hero-text">
         <div class="hero-icon">
-          <img src="/assets/images/icon.png" alt="Habit Tracker アプリアイコン">
+          <img src="/assets/images/icon.png" alt="Habit Tracker アプリアイコン" width="1024" height="1024">
         </div>
         <h1>習慣アプリに、疲れていませんか？</h1>
         <p class="hero-tagline">連続を追わない。積み上げだけを見る。<br class="sp-hide">途切れても、あなたの努力は消えない習慣アプリ。</p>
@@ -827,7 +827,7 @@ const faqJsonLd = {
         </div>
       </div>
       <div class="hero-visual">
-        <img src="/assets/images/appstore_creative/1.jpg" alt="Habit Tracker - 連続しなくていい、積み上げだけを静かに見守る習慣アプリ" loading="eager">
+        <img src="/assets/images/appstore_creative/1.jpg" alt="Habit Tracker - 連続しなくていい、積み上げだけを静かに見守る習慣アプリ" width="1242" height="2688" loading="eager">
       </div>
     </div>
   </header>
@@ -904,25 +904,25 @@ const faqJsonLd = {
     <div class="gallery-wrapper">
       <div class="gallery-scroll" id="gallery-scroll">
         <div class="gallery-item">
-          <img src="/assets/images/appstore_creative/3.jpg" alt="1タップで記録完了 - 習慣リストからワンタップで記録" loading="lazy">
+          <img src="/assets/images/appstore_creative/3.jpg" alt="1タップで記録完了 - 習慣リストからワンタップで記録" width="1242" height="2688" loading="lazy">
         </div>
         <div class="gallery-item">
-          <img src="/assets/images/appstore_creative/2.jpg" alt="カレンダービュー - 色の濃さで達成度を表示" loading="lazy">
+          <img src="/assets/images/appstore_creative/2.jpg" alt="カレンダービュー - 色の濃さで達成度を表示" width="1242" height="2688" loading="lazy">
         </div>
         <div class="gallery-item">
-          <img src="/assets/images/appstore_creative/6.jpg" alt="途切れても積み上げは消えない - 累計実行数の推移グラフ" loading="lazy">
+          <img src="/assets/images/appstore_creative/6.jpg" alt="途切れても積み上げは消えない - 累計実行数の推移グラフ" width="1242" height="2688" loading="lazy">
         </div>
         <div class="gallery-item">
-          <img src="/assets/images/appstore_creative/4.jpg" alt="週1でも月1でも - ウィークリー・マンスリー表示" loading="lazy">
+          <img src="/assets/images/appstore_creative/4.jpg" alt="週1でも月1でも - ウィークリー・マンスリー表示" width="1242" height="2688" loading="lazy">
         </div>
         <div class="gallery-item">
-          <img src="/assets/images/appstore_creative/8.jpg" alt="慣れてきたら強度も - できた・よくできた・ばっちりの3段階" loading="lazy">
+          <img src="/assets/images/appstore_creative/8.jpg" alt="慣れてきたら強度も - できた・よくできた・ばっちりの3段階" width="1242" height="2688" loading="lazy">
         </div>
         <div class="gallery-item">
-          <img src="/assets/images/appstore_creative/5.jpg" alt="広告なし 通知は1日1回 - 通知設定画面" loading="lazy">
+          <img src="/assets/images/appstore_creative/5.jpg" alt="広告なし 通知は1日1回 - 通知設定画面" width="1242" height="2688" loading="lazy">
         </div>
         <div class="gallery-item">
-          <img src="/assets/images/appstore_creative/7.jpg" alt="習慣は変えていい - 習慣編集画面" loading="lazy">
+          <img src="/assets/images/appstore_creative/7.jpg" alt="習慣は変えていい - 習慣編集画面" width="1242" height="2688" loading="lazy">
         </div>
       </div>
       <div class="gallery-dots" id="gallery-dots"></div>

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://habit-tracker-site.pages.dev/sitemap-index.xml
+Sitemap: https://smallwinsjp.com/sitemap-index.xml
