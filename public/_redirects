@@ -1,1 +1,3 @@
-https://habit-tracker-site.pages.dev/* https://smallwinsjp.com/:splat 301
+# ホスト名ベースのリダイレクト（pages.dev → smallwinsjp.com）は
+# Cloudflare Dashboard の Bulk Redirects で設定すること。
+# _redirects ではソースに絶対URLを指定できないため不可。
