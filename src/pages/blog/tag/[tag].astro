@@ -21,7 +21,9 @@ export async function getStaticPaths() {
         allPosts.flatMap((p) =>
           (p.data.tags ?? []).map((t) => [t, (allPosts.filter((pp) => pp.data.tags?.includes(t)).length)])
         )
-      ).entries()].sort((a, b) => b[1] - a[1]),
+      ).entries()]
+        .filter(([t, count]) => count >= 2 || t === tag)
+        .sort((a, b) => b[1] - a[1]),
     },
   }));
 }
@@ -84,12 +86,15 @@ function readingTime(body: string) {
             </a>
             {post.data.tags && post.data.tags.length > 0 && (
               <div class="tags">
-                {post.data.tags.map((t) => (
+                {[tag, ...post.data.tags.filter(t => t !== tag)].slice(0, 2).map((t) => (
                   <a
                     href={`/blog/tag/${t}`}
                     class={`tag${t === tag ? ' tag--active' : ''}`}
                   >{t}</a>
                 ))}
+                {post.data.tags.length > 2 && (
+                  <span class="tag-more">+{post.data.tags.length - 2}</span>
+                )}
               </div>
             )}
           </li>
@@ -320,5 +325,15 @@ function readingTime(body: string) {
   .tag--active {
     background: var(--primary);
     color: #fff;
+  }
+
+  .tag-more {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    padding: 3px 8px;
+    border-radius: 99px;
+    background: var(--bg-white);
+    border: 1.5px solid var(--border);
+    font-weight: 500;
   }
 </style>

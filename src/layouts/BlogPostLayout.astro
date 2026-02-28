@@ -194,13 +194,6 @@ const breadcrumbJsonLd = {
                 <span class="related-post-title">{p.data.title}</span>
                 <span class="related-post-desc">{p.data.description}</span>
               </a>
-              {p.data.tags && p.data.tags.length > 0 && (
-                <div class="related-tags">
-                  {p.data.tags.map((tag) => (
-                    <a href={`/blog/tag/${tag}`} class="tag tag--sm">{tag}</a>
-                  ))}
-                </div>
-              )}
             </li>
           ))}
         </ul>
@@ -596,12 +589,4 @@ const breadcrumbJsonLd = {
     line-height: 1.6;
   }
 
-  .related-tags {
-    position: relative;
-    z-index: 2;
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
-    margin-top: 10px;
-  }
 </style>

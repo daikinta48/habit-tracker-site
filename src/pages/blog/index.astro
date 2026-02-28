@@ -7,14 +7,16 @@ const posts = (await getCollection('blog', ({ data }) => {
   return import.meta.env.PROD ? data.draft !== true : true;
 })).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
-// タグ集計
+// タグ集計（2件以上の記事に使われているタグのみ表示）
 const tagCounts = new Map<string, number>();
 for (const post of posts) {
   for (const tag of post.data.tags ?? []) {
     tagCounts.set(tag, (tagCounts.get(tag) ?? 0) + 1);
   }
 }
-const allTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1]);
+const allTags = [...tagCounts.entries()]
+  .filter(([, count]) => count >= 2)
+  .sort((a, b) => b[1] - a[1]);
 
 // 読了時間（約500文字/分）
 function readingTime(body: string) {
@@ -65,9 +67,12 @@ function readingTime(body: string) {
             </a>
             {post.data.tags && post.data.tags.length > 0 && (
               <div class="tags">
-                {post.data.tags.map((tag) => (
+                {post.data.tags.slice(0, 2).map((tag) => (
                   <a href={`/blog/tag/${tag}`} class="tag">{tag}</a>
                 ))}
+                {post.data.tags.length > 2 && (
+                  <span class="tag-more">+{post.data.tags.length - 2}</span>
+                )}
               </div>
             )}
           </li>
@@ -277,5 +282,15 @@ function readingTime(body: string) {
   .tag:hover {
     background: var(--primary);
     color: #fff;
+  }
+
+  .tag-more {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    padding: 3px 8px;
+    border-radius: 99px;
+    background: var(--bg-white);
+    border: 1.5px solid var(--border);
+    font-weight: 500;
   }
 </style>
