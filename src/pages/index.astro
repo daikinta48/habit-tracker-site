@@ -39,6 +39,18 @@ const softwareJsonLd = {
   },
 };
 
+const organizationJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Small Wins',
+  url: siteUrl,
+  logo: {
+    '@type': 'ImageObject',
+    url: `${siteUrl}/assets/images/icon.png`,
+  },
+  sameAs: [],
+};
+
 const faqJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
@@ -100,6 +112,7 @@ const faqJsonLd = {
   canonicalPath="/"
 >
   <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(organizationJsonLd)} />
     <script type="application/ld+json" set:html={JSON.stringify(websiteJsonLd)} />
     <script type="application/ld+json" set:html={JSON.stringify(softwareJsonLd)} />
     <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} />
@@ -621,6 +634,59 @@ const faqJsonLd = {
       color: var(--text-muted);
     }
 
+    .review-prompt {
+      max-width: 520px;
+      margin: 0 auto;
+      text-align: center;
+      padding: 40px 32px;
+      background: var(--bg-white);
+      border-radius: var(--radius-xl);
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+    }
+
+    .review-prompt-stars {
+      font-size: 1.625rem;
+      letter-spacing: 4px;
+      color: #f59e0b;
+      margin-bottom: 12px;
+      line-height: 1;
+    }
+
+    .review-prompt-title {
+      font-size: 1.0625rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 10px;
+      letter-spacing: -0.01em;
+    }
+
+    .review-prompt-desc {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      line-height: 1.8;
+      margin-bottom: 24px;
+    }
+
+    .review-btn {
+      display: inline-block;
+      background: #f59e0b;
+      color: #fff;
+      padding: 11px 28px;
+      border-radius: var(--radius-lg);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.9375rem;
+      letter-spacing: 0.01em;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 14px rgba(245, 158, 11, 0.3);
+    }
+
+    .review-btn:hover {
+      background: #d97706;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
+    }
+
     .cta-section {
       text-align: center;
       padding: var(--space-2xl) 20px var(--space-3xl);
@@ -812,7 +878,7 @@ const faqJsonLd = {
           <span class="hero-badge">広告なし</span>
           <span class="hero-badge">アカウント不要</span>
         </div>
-        <a href="https://apps.apple.com/app/habit-tracker-small-wins/id6757263291" class="hero-cta" target="_blank" rel="noopener noreferrer">
+        <a href="https://apps.apple.com/app/habit-tracker-small-wins/id6757263291" class="hero-cta" target="_blank" rel="noopener noreferrer" data-cta="hero" onclick="if(typeof gtag!=='undefined'){gtag('event','cta_click',{event_category:'download',event_label:'hero',value:1});}">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
             <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
@@ -893,7 +959,7 @@ const faqJsonLd = {
       </div>
     </div>
     <div class="section-cta">
-      <a href="https://apps.apple.com/app/habit-tracker-small-wins/id6757263291" class="inline-cta" target="_blank" rel="noopener noreferrer">30秒で最初の習慣を登録</a>
+      <a href="https://apps.apple.com/app/habit-tracker-small-wins/id6757263291" class="inline-cta" target="_blank" rel="noopener noreferrer" data-cta="how_it_works" onclick="if(typeof gtag!=='undefined'){gtag('event','cta_click',{event_category:'download',event_label:'how_it_works',value:1});}">30秒で最初の習慣を登録</a>
       <p class="section-cta-note">アカウント登録なし・すぐ使えます</p>
     </div>
   </section>
@@ -961,10 +1027,29 @@ const faqJsonLd = {
     </div>
   </section>
 
+  <!-- レビュー促進 -->
+  <section>
+    <div class="review-prompt fade-up">
+      <p class="review-prompt-stars" aria-label="星5つ評価">★★★★★</p>
+      <p class="review-prompt-title">使ってみた感想をぜひ教えてください</p>
+      <p class="review-prompt-desc">
+        レビューはアプリの改善と、同じ悩みを持つ人への発見につながります。<br>
+        ひと言でもとても励みになります。
+      </p>
+      <a
+        href="https://apps.apple.com/app/habit-tracker-small-wins/id6757263291?action=write-review"
+        class="review-btn"
+        target="_blank"
+        rel="noopener noreferrer"
+        onclick="if(typeof gtag!=='undefined'){gtag('event','review_prompt_click',{event_category:'engagement',event_label:'review_section'});}"
+      >App Storeでレビューを書く</a>
+    </div>
+  </section>
+
   <!-- CTA -->
   <section class="cta-section">
     <p class="cta-message fade-up">連続しなくていい。変わってもいい。<br class="sp-hide">それでも、あなたは確実に前に進んでいます。</p>
-    <a href="https://apps.apple.com/app/habit-tracker-small-wins/id6757263291" class="hero-cta" target="_blank" rel="noopener noreferrer">
+    <a href="https://apps.apple.com/app/habit-tracker-small-wins/id6757263291" class="hero-cta" target="_blank" rel="noopener noreferrer" data-cta="bottom_cta" onclick="if(typeof gtag!=='undefined'){gtag('event','cta_click',{event_category:'download',event_label:'bottom_cta',value:1});}">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
         <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>

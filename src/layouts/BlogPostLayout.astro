@@ -31,6 +31,8 @@ const canonicalUrl = `${siteUrl}${canonicalPath}`;
 const pubDateISO = pubDate.toISOString();
 const updatedDateISO = updatedDate?.toISOString() ?? pubDateISO;
 
+const ogImageUrl = `${siteUrl}/assets/images/appstore_creative/1.jpg`;
+
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'BlogPosting',
@@ -39,6 +41,12 @@ const jsonLd = {
   url: canonicalUrl,
   datePublished: pubDateISO,
   dateModified: updatedDateISO,
+  image: {
+    '@type': 'ImageObject',
+    url: ogImageUrl,
+    width: 1200,
+    height: 630,
+  },
   author: {
     '@type': 'Organization',
     name: 'Habit Tracker',
@@ -48,6 +56,12 @@ const jsonLd = {
     '@type': 'Organization',
     name: 'Habit Tracker',
     url: siteUrl,
+    logo: {
+      '@type': 'ImageObject',
+      url: `${siteUrl}/assets/images/icon.png`,
+      width: 512,
+      height: 512,
+    },
   },
   mainEntityOfPage: {
     '@type': 'WebPage',
@@ -121,6 +135,55 @@ const breadcrumbJsonLd = {
       <slot />
     </div>
 
+    <!-- SNSシェアボタン -->
+    <div class="share-section">
+      <p class="share-label">この記事をシェアする</p>
+      <div class="share-buttons">
+        <a
+          id="share-x"
+          href="#"
+          class="share-btn share-btn--x"
+          target="_blank"
+          rel="noopener noreferrer"
+          onclick="if(typeof gtag!=='undefined'){gtag('event','share',{method:'X',content_type:'article'});}"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.259 5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          Xでシェア
+        </a>
+        <a
+          id="share-line"
+          href="#"
+          class="share-btn share-btn--line"
+          target="_blank"
+          rel="noopener noreferrer"
+          onclick="if(typeof gtag!=='undefined'){gtag('event','share',{method:'LINE',content_type:'article'});}"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.952 12.504c0-4.056-4.066-7.352-9.065-7.352-4.998 0-9.065 3.296-9.065 7.352 0 3.635 3.225 6.681 7.579 7.26.295.064.697.194.799.447.091.229.06.589.029.82l-.13.779c-.039.23-.182.897.786.489s5.223-3.076 7.127-5.265c1.314-1.441 1.94-2.904 1.94-4.53zm-11.27 2.302h-2.05a.334.334 0 0 1-.334-.334v-3.986a.334.334 0 0 1 .669 0v3.651h1.714a.334.334 0 0 1 0 .669zm1.433-.334a.334.334 0 0 1-.669 0v-3.986a.334.334 0 0 1 .669 0v3.986zm4.099 0a.335.335 0 0 1-.222.315.33.33 0 0 1-.114.019.336.336 0 0 1-.265-.131l-2.077-2.823v2.6a.334.334 0 0 1-.669 0v-3.986a.335.335 0 0 1 .222-.315.33.33 0 0 1 .379.112l2.077 2.823v-2.62a.334.334 0 0 1 .669 0v3.986zm2.623-2.4a.334.334 0 0 1 0 .669h-1.382v.731h1.382a.334.334 0 0 1 0 .669h-1.716a.334.334 0 0 1-.334-.334v-3.986a.334.334 0 0 1 .334-.334h1.716a.334.334 0 0 1 0 .669h-1.382v.582h1.382z"/></svg>
+          LINEで送る
+        </a>
+      </div>
+    </div>
+
+    <!-- アプリCTAバナー -->
+    <aside class="app-cta-banner">
+      <div class="app-cta-banner-inner">
+        <div class="app-cta-banner-text">
+          <p class="app-cta-banner-label">この記事を読んで、習慣を始めてみませんか？</p>
+          <p class="app-cta-banner-desc">連続しなくていい習慣アプリ。無料・広告なし・アカウント不要。</p>
+        </div>
+        <a
+          href="https://apps.apple.com/app/habit-tracker-small-wins/id6757263291"
+          class="app-cta-banner-btn"
+          target="_blank"
+          rel="noopener noreferrer"
+          onclick="if(typeof gtag!=='undefined'){gtag('event','cta_click',{event_category:'download',event_label:'blog_post_banner',value:1});}"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          無料でダウンロード
+        </a>
+      </div>
+    </aside>
+
     {relatedPosts && relatedPosts.length > 0 && (
       <aside class="related-posts">
         <h2 class="related-title">関連記事</h2>
@@ -146,6 +209,23 @@ const breadcrumbJsonLd = {
   </article>
   <Footer />
 </BaseLayout>
+
+<script>
+  (function() {
+    var pageUrl = encodeURIComponent(window.location.href);
+    var pageTitle = encodeURIComponent(document.title);
+
+    var xBtn = document.getElementById('share-x');
+    if (xBtn) {
+      xBtn.href = 'https://x.com/intent/tweet?url=' + pageUrl + '&text=' + pageTitle;
+    }
+
+    var lineBtn = document.getElementById('share-line');
+    if (lineBtn) {
+      lineBtn.href = 'https://social-plugins.line.me/lineit/share?url=' + pageUrl;
+    }
+  })();
+</script>
 
 <style>
   .blog-post {
@@ -341,6 +421,115 @@ const breadcrumbJsonLd = {
     max-width: 100%;
     border-radius: var(--radius-md);
     margin: 8px 0;
+  }
+
+  /* SNSシェアボタン */
+  .share-section {
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+  }
+
+  .share-label {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 12px;
+  }
+
+  .share-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .share-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 18px;
+    border-radius: 99px;
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 600;
+    transition: transform 0.18s, box-shadow 0.18s, opacity 0.18s;
+  }
+
+  .share-btn:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+  }
+
+  .share-btn--x {
+    background: #000;
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  }
+
+  .share-btn--line {
+    background: #06c755;
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(6, 199, 85, 0.25);
+  }
+
+  /* アプリCTAバナー */
+  .app-cta-banner {
+    margin-top: 48px;
+    padding: 28px 32px;
+    background: linear-gradient(135deg, var(--primary-light) 0%, #e8ecff 100%);
+    border-radius: var(--radius-xl);
+    border: 1.5px solid rgba(76, 99, 238, 0.15);
+  }
+
+  .app-cta-banner-inner {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .app-cta-banner-text {
+    flex: 1;
+    min-width: 200px;
+  }
+
+  .app-cta-banner-label {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 4px;
+    line-height: 1.5;
+  }
+
+  .app-cta-banner-desc {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .app-cta-banner-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: var(--primary);
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.9375rem;
+    white-space: nowrap;
+    box-shadow: 0 4px 14px rgba(76, 99, 238, 0.3);
+    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+  }
+
+  .app-cta-banner-btn:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(76, 99, 238, 0.4);
   }
 
   /* 関連記事 */

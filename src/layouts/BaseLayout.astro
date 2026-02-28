@@ -19,7 +19,8 @@ const {
 } = Astro.props;
 
 const siteUrl = Astro.site?.href.replace(/\/$/, '') ?? '';
-const canonicalUrl = canonicalPath ? `${siteUrl}${canonicalPath}` : undefined;
+const resolvedPath = canonicalPath ?? Astro.url.pathname;
+const canonicalUrl = `${siteUrl}${resolvedPath}`;
 const ogImageUrl = `${siteUrl}${ogImage}`;
 ---
 <!DOCTYPE html>
@@ -33,13 +34,14 @@ const ogImageUrl = `${siteUrl}${ogImage}`;
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
   <title>{title}</title>
   <meta name="description" content={description} />
-  {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <link rel="canonical" href={canonicalUrl} />
 
   <!-- Open Graph -->
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
   <meta property="og:type" content={ogType} />
-  {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
+  <meta property="og:url" content={canonicalUrl} />
   <meta property="og:image" content={ogImageUrl} />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -67,5 +69,36 @@ const ogImageUrl = `${siteUrl}${ogImage}`;
 <body>
   <SiteNav />
   <slot />
+
+  <!-- モバイル向けスティッキーCTAバー -->
+  <div class="sticky-cta" id="sticky-cta" aria-hidden="true">
+    <a
+      href="https://apps.apple.com/app/habit-tracker-small-wins/id6757263291"
+      class="sticky-cta-btn"
+      target="_blank"
+      rel="noopener noreferrer"
+      onclick="if(typeof gtag!=='undefined'){gtag('event','cta_click',{event_category:'download',event_label:'sticky_bar',value:1});}"
+    >
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+      App Storeで無料ダウンロード
+    </a>
+  </div>
+
+  <script is:inline>
+    (function() {
+      var bar = document.getElementById('sticky-cta');
+      if (!bar) return;
+      var shown = false;
+      function onScroll() {
+        var scrolled = window.scrollY > 300;
+        if (scrolled !== shown) {
+          shown = scrolled;
+          bar.setAttribute('aria-hidden', shown ? 'false' : 'true');
+          bar.classList.toggle('sticky-cta--visible', shown);
+        }
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+    })();
+  </script>
 </body>
 </html>
