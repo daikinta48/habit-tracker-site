@@ -4,5 +4,9 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://smallwinsjp.com',
   output: 'static',
-  integrations: [sitemap()],
+  integrations: [
+    sitemap({
+      lastmod: new Date('2026-02-28'),
+    }),
+  ],
 });

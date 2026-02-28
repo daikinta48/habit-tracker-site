@@ -21,7 +21,11 @@ function readingTime(body: string) {
   return Math.max(1, Math.ceil(body.length / 500));
 }
 ---
-<BaseLayout title="ブログ - Habit Tracker" description="Habit Trackerの開発ストーリーや習慣に関するブログです。">
+<BaseLayout
+  title="ブログ - Habit Tracker"
+  description="習慣に関するヒントや、Habit Trackerの開発ストーリーを発信するブログです。三日坊主・習慣化・モーニングルーティンなど日本語記事を掲載。"
+  canonicalPath="/blog"
+>
   <div class="container">
     <header class="blog-header">
       <h1>ブログ</h1>

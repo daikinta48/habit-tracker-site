@@ -1,7 +1,7 @@
 ---
 title: "【書評】巨富を築く思考法 Think and Grow Rich ── 成功者500人から導き出された思考習慣の原則"
 description: "Napoleon Hillの名著『Think and Grow Rich』を解説。1937年初版から読み継がれる13の成功法則と、現代においても有効な思考習慣のエッセンスを紹介します。"
-pubDate: 2026-02-22
+pubDate: 2026-02-15
 tags: ["書籍紹介", "マインドセット", "思考習慣", "Think and Grow Rich"]
 ---
 

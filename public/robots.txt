@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
 
+Sitemap: https://smallwinsjp.com/sitemap.xml
 Sitemap: https://smallwinsjp.com/sitemap-index.xml
